@@ -22,3 +22,5 @@
          - wget 
          - htop 
          - tmux
+         - php5.6
+         - nginx
