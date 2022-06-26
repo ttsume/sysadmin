@@ -1,26 +1,19 @@
 ---
+name: install Vim,Wget,Htop,Tmux,Php5.6,Nginx,Apache2
+hosts: all
+become: true
+become_method: sudo
+become_user: root
 
-- hosts: all
-
-  tasks:
-
-    - name: install packages
-
-      become: true
-
-      become_user: root
-
-      dnf:
-
-        state: present
-
-        name:
-
-         - tcsh
-         - htop
-         - vim 
-         - wget 
-         - htop 
-         - tmux
-         - php5.6
-         - nginx
+tasks:
+- name: install apps
+  apt:
+    name: 
+      - vim
+      - wget
+      - htop
+      - tmux
+      - php5.6
+      - nginx
+      - apache2
+    state: latest
