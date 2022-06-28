@@ -1,0 +1,68 @@
+---
+- name: inall apps
+  hosts: all
+  become: True
+  tasks:
+    - name: "apt-get update"
+      apt: 
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: install vim
+      apt:
+        name: ['vim']
+
+    - name: install htop
+      apt:
+        name: ['htop']
+
+    - name: install wget
+      apt:
+        name: ['wget']
+    
+    - name: install tmux
+      apt:
+        name: ['tmux']
+
+    - name: "install apache2"
+      apt:
+        name: ['apache2']
+        state: latest
+
+    - name: php - add repository
+      apt_repository:
+        repo: "ppa:ondrej/php"
+        state: "present"
+        update_cache: yes
+
+# xdebug installation described in xdebug.yml
+    - name: php - install base packages
+      apt:
+        name: "{{ item }}"
+        state: "present"
+        with_items:
+        - "php5.6-common"
+        - "php5.6-cli"
+        - "php5.6-fpm"
+        - "php5.6-pgsql"
+        - "php5.6-mysql"
+        - "php5.6-gd"
+        - "php5.6-bz2"
+        - "php5.6-zip"
+        - "php5.6-json"
+        - "php5.6-xml"
+        - "php5.6-curl"
+        - "php5.6-intl"
+        - "php5.6-mbstring"
+        - "php5.6-mcrypt"
+        - "php5.6-bcmath"
+        - "php5.6-soap"
+        - "php5.6-opcache"
+
+    - name: php - ensure pid directory exists
+      file:
+        path: "/run/php"
+        state: "directory"
+        owner: "root"
+        group: "root"
+        mode: 0755
