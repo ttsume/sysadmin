@@ -34,8 +34,7 @@
         repo: "ppa:ondrej/php"
         state: "present"
         update_cache: yes
-
-# xdebug installation described in xdebug.yml
+#test php
     - name: php - install base packages
       apt:
         name: "{{ item }}"
